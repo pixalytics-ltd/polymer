@@ -17,6 +17,8 @@ from polymer.polymer_main import PolymerMinimizer
 from polymer.water import ParkRuddick, MorelMaritorena
 from warnings import warn
 from polymer.uncertainties import toa_uncertainties
+from polymer.level1 import Level1
+from polymer.level2 import Level2
 
 import sys
 if sys.version_info[:2] >= (3, 0):

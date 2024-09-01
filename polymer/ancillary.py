@@ -1,6 +1,8 @@
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from os import makedirs
 from os.path import isdir
 import xarray as xr
 from datetime import datetime, timedelta
@@ -189,6 +191,8 @@ class Ancillary_NASA(object):
 
         self.url = 'https://oceandata.sci.gsfc.nasa.gov/cgi/getfile/'
 
+        if not exists(directory):
+            makedirs(directory)
         assert isdir(directory), 'Directory {} does not exist. Please create it, by default it will be automatically populated with ancillary data. Please see help for class Ancillary_NASA for more details.'.format(directory)
 
         # arguments to be deprecated

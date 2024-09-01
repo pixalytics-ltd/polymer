@@ -12,7 +12,7 @@ import sys
 import numpy as np
 from polymer.utils import ListOnDisk
 from os.path import exists, join
-from os import rename
+from os import rename, makedirs
 from osgeo import gdal
 from netCDF4 import Dataset
 import tempfile
@@ -124,6 +124,10 @@ def get_sw(lat, lon, directory='data_landmask_gsw', agg=1):
     """
     Reads JRC Global Surface Water data from (lat, lon) in water percentage
     """
+    
+    if not exists(directory):
+        makedirs(directory)
+    
     if not exists(directory):
         raise IOError('Data directory for GSW data (global surface water) does not exist: mkdir -p {}'.format(directory))
 
