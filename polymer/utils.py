@@ -3,7 +3,8 @@
 
 import numpy as np
 from scipy.ndimage import convolve
-from numpy import ones, sqrt, zeros_like, NaN, isnan
+from numpy import ones, sqrt, zeros_like, isnan
+from numpy import nan as NaN
 from os import system
 from scipy.interpolate import RectBivariateSpline
 from scipy.ndimage import distance_transform_edt
