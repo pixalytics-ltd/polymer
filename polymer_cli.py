@@ -10,6 +10,7 @@ import argparse
 import os
 from polymer.main import run_atm_corr
 from polymer.level1 import Level1
+from polymer.level1_msi import Level1_MSI
 from polymer.level2 import Level2
 from polymer.gsw import GSW
 from polymer.ancillary import Ancillary_NASA
@@ -32,6 +33,7 @@ if __name__ == "__main__":
 
     parser.add_argument('input_file')
     parser.add_argument('output_file')
+    parser.add_argument('-sensor', default='msi', help='Sensor')
     parser.add_argument('-res', default='60', help='Resolution')
     parser.add_argument('-sline', default=None, help='Bounding box')
     parser.add_argument('-eline', default=None, help='Bounding box')
@@ -71,7 +73,10 @@ if __name__ == "__main__":
     else:
         landmask = GSW(directory=gswdir)
       
-    if args.sline is not None:
+    if args.sensor is "msi":
+      run_atm_corr(Level1_MSI(args.input_file,ancillary=Ancillary_NASA(directory=ancdir), resolution=args.res, landmask=landmask, sline=int(args.sline), eline=int(args.eline), scol=int(args.scol), ecol=int(args.ecol)), Level2(filename=args.output_file, fmt=args.fmt, tmpdir=tmpdir), multiprocessing=-1)
+    
+    elif args.sline is not None:
       run_atm_corr(Level1(args.input_file,ancillary=Ancillary_NASA(directory=ancdir), resolution=args.res, landmask=landmask, sline=int(args.sline), eline=int(args.eline), scol=int(args.scol), ecol=int(args.ecol)), Level2(filename=args.output_file, fmt=args.fmt, tmpdir=tmpdir), multiprocessing=-1)
     else:
       run_atm_corr(Level1(args.input_file,ancillary=Ancillary_NASA(directory=ancdir), resolution=args.res, landmask=landmask), Level2(filename=args.output_file, fmt=args.fmt, tmpdir=tmpdir), multiprocessing=-1)
